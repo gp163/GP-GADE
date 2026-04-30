@@ -4,9 +4,9 @@ from pong_game import Paddle, Ball, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK, WHITE
 
 @pytest.fixture
 def init_pygame():
-    pygame.init()
+    # pygame is already initialized at module import, but we can use this fixture for any cleanup
     yield
-    pygame.quit()
+    # Don't quit pygame here as it's used by other tests
 
 def test_paddle_initialization(init_pygame):
     paddle = Paddle(10, 100)

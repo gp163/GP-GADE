@@ -1,5 +1,22 @@
 import pygame
 import random
+import os
+import sys
+
+# Set pygame to use windib video driver on Windows for testing
+if os.environ.get('SDL_VIDEODRIVER') is None:
+    if sys.platform.startswith('win'):
+        os.environ['SDL_VIDEODRIVER'] = 'windib'
+    else:
+        os.environ['SDL_VIDEODRIVER'] = 'dummy'
+
+# Initialize Pygame at module import time for use with pygame.sprite
+try:
+    pygame.init()
+except Exception:
+    # If pygame init fails, try with dummy driver
+    os.environ['SDL_VIDEODRIVER'] = 'dummy'
+    pygame.init()
 
 # Screen dimensions
 SCREEN_WIDTH = 800
@@ -59,8 +76,6 @@ class Ball(pygame.sprite.Sprite):
 
 # Initialize Pygame only when run as main
 if __name__ == "__main__":
-    pygame.init()
-
     # Create screen
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Pong Game")
