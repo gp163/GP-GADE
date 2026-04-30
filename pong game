@@ -110,7 +110,3 @@ while running:
     pygame.display.flip()
 
 pygame.quit()
-try:
-    import optional_module  # pyright: ignore[reportMissingImports]
-except ImportError:
-    optional_module = None
