@@ -1,0 +1,14 @@
+Script starting...
+Pytest imported
+============================= test session starts =============================
+platform win32 -- Python 3.12.13, pytest-9.0.3, pluggy-1.6.0 -- C:\Users\USER\Documents\Pong-game\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\USER\Documents\Pong-game
+configfile: pytest.ini
+collecting ... collected 1 item
+
+test_minimal.py::test_simple PASSED                                      [100%]
+
+============================== 1 passed in 0.17s ==============================
+Pytest exit code: 0
+Script completed

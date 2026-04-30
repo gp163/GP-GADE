@@ -3,21 +3,6 @@ import random
 import os
 import sys
 
-# Set pygame to use windib video driver on Windows for testing
-if os.environ.get('SDL_VIDEODRIVER') is None:
-    if sys.platform.startswith('win'):
-        os.environ['SDL_VIDEODRIVER'] = 'windib'
-    else:
-        os.environ['SDL_VIDEODRIVER'] = 'dummy'
-
-# Initialize Pygame at module import time for use with pygame.sprite
-try:
-    pygame.init()
-except Exception:
-    # If pygame init fails, try with dummy driver
-    os.environ['SDL_VIDEODRIVER'] = 'dummy'
-    pygame.init()
-
 # Screen dimensions
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -26,9 +11,33 @@ SCREEN_HEIGHT = 600
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
+# Lazy initialization flag
+_pygame_initialized = False
+
+def _ensure_pygame_init():
+    """Ensure pygame is initialized before use."""
+    global _pygame_initialized
+    if not _pygame_initialized:
+        # Set pygame to use windib video driver on Windows for testing
+        if os.environ.get('SDL_VIDEODRIVER') is None:
+            if sys.platform.startswith('win'):
+                os.environ['SDL_VIDEODRIVER'] = 'windib'
+            else:
+                os.environ['SDL_VIDEODRIVER'] = 'dummy'
+        
+        try:
+            pygame.init()
+        except Exception:
+            # If pygame init fails, try with dummy driver
+            os.environ['SDL_VIDEODRIVER'] = 'dummy'
+            pygame.init()
+        
+        _pygame_initialized = True
+
 # Paddle class
 class Paddle(pygame.sprite.Sprite):
     def __init__(self, x, y):
+        _ensure_pygame_init()
         super().__init__()
         self.image = pygame.Surface((15, 90))
         self.image.fill(WHITE)
@@ -52,6 +61,7 @@ class Paddle(pygame.sprite.Sprite):
 # Ball class
 class Ball(pygame.sprite.Sprite):
     def __init__(self):
+        _ensure_pygame_init()
         super().__init__()
         self.image = pygame.Surface((15, 15))
         self.image.fill(WHITE)
@@ -76,6 +86,8 @@ class Ball(pygame.sprite.Sprite):
 
 # Initialize Pygame only when run as main
 if __name__ == "__main__":
+    _ensure_pygame_init()
+    
     # Create screen
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Pong Game")

@@ -1,9 +1,9 @@
 import pytest
-import pygame
 from pong_game import Paddle, Ball, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK, WHITE
 
 @pytest.fixture
 def init_pygame():
+    import pygame
     # pygame is already initialized at module import, but we can use this fixture for any cleanup
     yield
     # Don't quit pygame here as it's used by other tests
@@ -21,12 +21,14 @@ def test_ball_initialization(init_pygame):
     assert ball.speed_y in [-5, 5]
 
 def test_paddle_movement_up(init_pygame):
+    import pygame
     paddle = Paddle(10, 100)
     keys = {pygame.K_w: True, pygame.K_s: False}
     paddle.update(keys, True)
     assert paddle.rect.y == 95  # Moved up by speed
 
 def test_paddle_movement_down(init_pygame):
+    import pygame
     paddle = Paddle(10, 100)
     keys = {pygame.K_w: False, pygame.K_s: True}
     paddle.update(keys, True)

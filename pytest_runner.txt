@@ -1,0 +1,5 @@
+Python version: 3.12.13 (main, Apr 14 2026, 14:31:26) [MSC v.1944 64 bit (AMD64)]
+Working directory: C:\Users\USER\Documents\Pong-game
+Files in directory: ['.git', '.gitattributes', '.github', '.python-version', '.venv', '.vscode', 'conftest.py', 'done.txt', 'LICENSE', 'main.py', 'pong_game.py', 'pyproject.toml', 'pytest.ini', 'pytest_collect.txt', 'pytest_runner.txt', 'pytest_version.txt', 'README.md', 'run_pytest.py', 'simple_script.py', 'simple_test.txt', 'test_output.txt', 'test_pong.py', 'test_simple.py', 'uv.lock', '__pycache__']
+
+Importing pytest...
